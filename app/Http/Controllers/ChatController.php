@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Chat;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
@@ -13,6 +14,7 @@ class ChatController extends Controller
      * @var ChatRepository
      */
     private $repository;
+
     /**
      * UserController constructor.
      * @param UserRepository $repository
@@ -32,6 +34,7 @@ class ChatController extends Controller
     {
         return $this->repository->all();
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,6 +44,7 @@ class ChatController extends Controller
     {
         // return view
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -49,8 +53,10 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->repository->create($request->all());
+        $this->repository->create($request->all());
+        return back();
     }
+
     /**
      * Display the specified resource.
      *
@@ -61,6 +67,7 @@ class ChatController extends Controller
     {
         return $this->repository->find($id);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -71,6 +78,7 @@ class ChatController extends Controller
     {
         // return view
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -82,6 +90,7 @@ class ChatController extends Controller
     {
         $this->repository->update($id, $request->all());
     }
+
     /**
      * Remove the specified resource from storage.
      *

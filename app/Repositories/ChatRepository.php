@@ -11,20 +11,21 @@ namespace App\Repositories;
 
 use App\Chat;
 use App\Interfaces\BaseRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class ChatRepository implements BaseRepositoryInterface
 {
 
     private $model;
+
     /**
-     * UserRepository constructor.
-     * @param User $user
+     * ChatRepository constructor.
+     * @param Chat $chat
      */
     public function __construct(Chat $chat)
     {
         $this->model = $chat;
     }
-
 
 
     /**
@@ -45,6 +46,7 @@ class ChatRepository implements BaseRepositoryInterface
      */
     public function create(array $data)
     {
+        $data['user_id'] = Auth::user()->id;
         return $this->model->create($data);
         // TODO: Implement create() method.
     }
