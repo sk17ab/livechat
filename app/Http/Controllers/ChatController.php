@@ -3,10 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Chat;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+
+    /**
+     * @var ChatRepository
+     */
+    private $repository;
+
+    /**
+     * UserController constructor.
+     * @param UserRepository $repository
+     */
+    public function __construct(ChatRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +32,8 @@ class ChatController extends Controller
      */
     public function index()
     {
-        //
+       $chats =  $this->repository->all();
+        return view('home', compact('chats'));
     }
 
     /**
@@ -24,62 +43,63 @@ class ChatController extends Controller
      */
     public function create()
     {
-        //
+        // return view
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->repository->create($request->all());
+        return back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Chat  $chat
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Chat $chat)
+    public function show($id)
     {
-        //
+        return $this->repository->find($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Chat  $chat
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Chat $chat)
+    public function edit($id)
     {
-        //
+        // return view
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Chat  $chat
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
-    public function update(Request $request, Chat $chat)
+    public function update(Request $request, $id)
     {
-        //
+        $this->repository->update($id, $request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Chat  $chat
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Chat $chat)
+    public function destroy($id)
     {
-        //
+        return $this->repository->delete($id);
     }
 }
