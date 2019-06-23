@@ -48,7 +48,6 @@ class ChatRepository implements BaseRepositoryInterface
     {
         $data['user_id'] = Auth::user()->id;
         return $this->model->create($data);
-        // TODO: Implement create() method.
     }
 
     /**

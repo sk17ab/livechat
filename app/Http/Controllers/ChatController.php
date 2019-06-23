@@ -32,7 +32,8 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return $this->repository->all();
+       $chats =  $this->repository->all();
+        return view('home', compact('chats'));
     }
 
     /**

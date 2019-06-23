@@ -32,6 +32,24 @@
                         </form>
 
 
+                        <script>
+                            const app = new Vue({
+                                el: '#chat',
+                                data: {
+                                    chats: {!! $chats !!},
+                                },
+                                methods: {
+                                    addItem() {
+                                        this.items.push({
+                                            value: ''
+                                        });
+
+                                    }
+                                }
+                            })
+
+                        </script>
+
                     </div>
                 </div>
             </div>
